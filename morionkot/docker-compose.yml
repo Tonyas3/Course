@@ -1,0 +1,24 @@
+version: '2'
+services:
+  morion:
+    image: kot/morion:0.0.1
+    container_name: morion
+    depends_on:
+      - postgres
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/morionkot
+    ports:
+      - 8081:8081
+#      - 8080:8080
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres-db
+    volumes:
+    - ./postgres/volume:/var/lib/postgresql/data:delegated
+    ports:
+    - 5432:5432
+    environment:
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=q1w2e3
+        - POSTGRES_DB=morionkot
